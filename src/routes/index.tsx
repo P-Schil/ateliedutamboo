@@ -1,24 +1,51 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { ArrowDown, ArrowRight, ArrowUpRight, Clock3, Hammer, HeartHandshake, Menu, Music2, Palette, ShieldCheck, Sparkles, Wrench, X, MessageCircle, Instagram, MapPin, Mail, Phone, Drum, Leaf, Quote, CircleCheck } from "lucide-react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+export const Route = createFileRoute("/")({ component: Index });
+const WHATSAPP = "https://wa.me/5511963617638";
+const services = [
+  { icon: Drum, title: "Instrumentos artesanais", text: "Instrumentos de percussão feitos artesanalmente, com atenção aos materiais, ao acabamento e à qualidade sonora." },
+  { icon: Wrench, title: "Manutenção especializada", text: "Cuidados e ajustes para ajudar seu instrumento a manter o desempenho, a sonoridade e a vida útil." },
+  { icon: Palette, title: "Arte personalizada", text: "Detalhes artísticos exclusivos que transformam cada peça em um instrumento com identidade própria." },
+  { icon: Leaf, title: "Madeira e couro", text: "Materiais tradicionais combinados com cuidado para criar instrumentos com personalidade e presença." },
+  { icon: Music2, title: "Afinação e acabamento", text: "Atenção à construção e à afinação para uma experiência musical cuidadosa e consistente." },
+  { icon: HeartHandshake, title: "Orientação personalizada", text: "Conversa direta para entender sua necessidade e orientar a escolha, o cuidado ou a personalização." },
+];
+const differentiators = [
+  { icon: HeartHandshake, title: "Atendimento próximo", text: "Cada conversa começa pela sua necessidade e pelo uso que fará do instrumento." },
+  { icon: ShieldCheck, title: "Compromisso com a qualidade", text: "Cuidado técnico e ética profissional vêm antes de qualquer atalho comercial." },
+  { icon: Hammer, title: "Feito artesanalmente", text: "Construção e acabamento atentos aos materiais, à sonoridade e à individualidade de cada peça." },
+  { icon: Sparkles, title: "Arte com identidade", text: "Personalização artística para quem procura um instrumento que expresse sua identidade." },
+];
+const faqs = [
+  { q: "Os instrumentos podem ser personalizados?", a: "Sim. Entre em contato para conversar sobre sua ideia, os materiais e as possibilidades para a peça desejada." },
+  { q: "Vocês fazem manutenção de instrumentos?", a: "Sim. Envie uma mensagem descrevendo o instrumento e o tipo de cuidado necessário para avaliarmos os próximos passos." },
+  { q: "Como solicito um orçamento?", a: "Fale pelo WhatsApp e, se possível, envie fotos do instrumento ou referências do projeto. O valor é informado após entendermos o que você procura." },
+  { q: "Onde fica o ateliê?", a: "O Ateliê du Bamboo está localizado em São Paulo. Entre em contato para combinar os detalhes do atendimento." },
+];
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [faqOpen, setFaqOpen] = useState<number | null>(0);
+  const closeMenu = () => setMenuOpen(false);
+  return <main className="site-shell">
+    <div className="announcement"><span className="announcement-dot" /> Artesania, sonoridade e identidade em cada instrumento <span>· São Paulo, SP</span></div>
+    <header className="site-header">
+      <a className="brand" href="#inicio" aria-label="Ateliê du Bamboo — início" onClick={closeMenu}><span className="brand-mark"><Music2 size={24}/></span><span className="brand-copy"><strong>ATELIÊ <em>DU BAMBOO</em></strong><small>INSTRUMENTOS ARTESANAIS</small></span></a>
+      <button className="mobile-menu-toggle" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X/> : <Menu/>}</button>
+      <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Navegação principal"><a href="#sobre" onClick={closeMenu}>O ateliê</a><a href="#servicos" onClick={closeMenu}>Serviços</a><a href="#diferenciais" onClick={closeMenu}>Nosso cuidado</a><a href="#duvidas" onClick={closeMenu}>Dúvidas</a><a className="nav-cta" href={WHATSAPP} target="_blank" rel="noreferrer" onClick={closeMenu}>Fale conosco <ArrowUpRight size={16}/></a></nav>
+    </header>
+    <section id="inicio" className="hero"><div className="hero-image" role="img" aria-label="Instrumentos musicais artesanais em ambiente de criação"/><div className="hero-overlay"/><div className="hero-content"><p className="eyebrow eyebrow-light"><span/> SOM COM RAIZ. ARTE COM IDENTIDADE.</p><h1>Instrumentos feitos à mão.<br/><em>Feitos para ressoar.</em></h1><p className="hero-lead">Percussão artesanal, manutenção cuidadosa e arte personalizada. Cada detalhe importa quando o instrumento carrega a sua expressão.</p><div className="hero-actions"><a className="button button-light" href={WHATSAPP} target="_blank" rel="noreferrer">Quero falar com especialista <ArrowRight size={18}/></a><a className="text-link text-link-light" href="#servicos">Conheça o trabalho <ArrowDown size={16}/></a></div><div className="hero-footnote"><span className="hero-line"/> TRABALHO ARTESANAL EM SÃO PAULO</div></div><div className="hero-side-note">MADEIRA · COURO · SOM</div></section>
+    <section className="trust-strip" aria-label="Destaques do ateliê"><div><Clock3/><p><strong>Mais de 25 anos</strong><small>de experiência no mercado</small></p></div><div><Hammer/><p><strong>Feito artesanalmente</strong><small>atenção a cada detalhe</small></p></div><div><Palette/><p><strong>Arte personalizada</strong><small>identidade em cada peça</small></p></div><div><HeartHandshake/><p><strong>Atendimento próximo</strong><small>orientação sob medida</small></p></div></section>
+    <section id="sobre" className="section about-section"><div className="about-visual"><div className="about-photo" role="img" aria-label="Detalhe de instrumento de percussão artesanal"/><div className="photo-caption"><span>O VALOR ESTÁ NOS DETALHES</span><strong>Feito com intenção.</strong></div><div className="experience-stamp"><strong>25+</strong><small>ANOS DE<br/>EXPERIÊNCIA</small></div></div><div className="about-copy"><p className="eyebrow"><span/> SOBRE O ATELIÊ</p><h2>Tradição artesanal.<br/><em>Expressão própria.</em></h2><p className="section-intro">O Ateliê du Bamboo une cuidado com os materiais, busca por uma boa sonoridade e o desejo de criar instrumentos com personalidade.</p><p>Com mais de 25 anos de experiência no mercado, o trabalho reúne a confecção artesanal de instrumentos de percussão, a manutenção e a arte personalizada. Madeira, couro, técnica e sensibilidade fazem parte desse processo.</p><p>Acreditamos que qualidade se constrói com tempo, escuta e relacionamento. Cada atendimento começa entendendo o que você procura — sem abrir mão da responsabilidade técnica e da ética profissional.</p><div className="signature"><span/><div><strong>Ateliê du Bamboo</strong><small>Feito com cuidado, pensado para durar.</small></div></div><a className="text-link" href={WHATSAPP} target="_blank" rel="noreferrer">Converse com o ateliê <ArrowRight size={17}/></a></div></section>
+    <section id="servicos" className="section services-section"><div className="section-heading"><div><p className="eyebrow"><span/> O QUE FAZEMOS</p><h2>Ofício, cuidado<br/>e <em>possibilidades.</em></h2></div><p>Da criação à manutenção, soluções artesanais que respeitam a personalidade do instrumento e a intenção de quem toca.</p></div><div className="services-grid">{services.map((s,i)=>{const Icon=s.icon;return <article className="service-card" key={s.title}><div className="service-card-top"><span className="service-icon"><Icon size={23}/></span><span className="service-number">0{i+1}</span></div><h3>{s.title}</h3><p>{s.text}</p><a href={WHATSAPP} target="_blank" rel="noreferrer" className="service-link">Quero tirar dúvidas <ArrowUpRight size={16}/></a></article>})}</div></section>
+    <section className="craft-section"><div className="craft-image" role="img" aria-label="Texturas naturais de madeira e couro em instrumento musical"/><div className="craft-copy"><p className="eyebrow eyebrow-light"><span/> A FILOSOFIA DO FAZER</p><h2>O som começa<br/>antes da primeira <em>nota.</em></h2><p>A escolha dos materiais, o cuidado no acabamento e a atenção à afinação fazem parte de um trabalho em que cada etapa conta.</p><a className="button button-outline-light" href={WHATSAPP} target="_blank" rel="noreferrer">Vamos conversar <ArrowRight size={18}/></a></div><div className="craft-index">MATÉRIA / SOM / EXPRESSÃO</div></section>
+    <section id="diferenciais" className="section differentiators-section"><div className="section-heading"><div><p className="eyebrow"><span/> POR QUE DU BAMBOO</p><h2>Um trabalho que<br/>respeita <em>o seu som.</em></h2></div><p>Queremos construir uma relação de confiança — com clareza, escuta e compromisso em cada etapa.</p></div><div className="differentiators-grid">{differentiators.map((d,i)=>{const Icon=d.icon;return <article className="differentiator" key={d.title}><span className="diff-number">0{i+1}</span><span className="diff-icon"><Icon size={24}/></span><h3>{d.title}</h3><p>{d.text}</p></article>})}</div><div className="quality-note"><CircleCheck size={19}/><p><strong>Qualidade e ética não são negociáveis.</strong> Cada projeto é tratado com transparência e respeito ao que o instrumento precisa.</p></div></section>
+    <section className="quote-section"><Quote className="quote-mark" size={35}/><p className="eyebrow eyebrow-light"><span/> NOSSA CONVICÇÃO</p><blockquote>“Um instrumento não é só madeira e couro. É matéria, intenção e a voz de quem faz música.”</blockquote><span className="quote-rule"/><p className="quote-attribution">ATELIÊ DU BAMBOO <span>·</span> ARTESANIA MUSICAL</p></section>
+    <section className="section testimonials-section"><div className="testimonial-heading"><p className="eyebrow"><span/> RELACIONAMENTO QUE CONTINUA</p><h2>Confiança se constrói<br/><em>com o tempo.</em></h2><p>Mais de 25 anos de experiência no mercado reforçam o compromisso com o trabalho bem-feito e o relacionamento próximo.</p></div><div className="testimonial-placeholder"><div className="testimonial-placeholder-icon"><MessageCircle size={26}/></div><h3>A sua experiência também conta.</h3><p>Este espaço será atualizado com depoimentos reais de clientes. Quer conhecer o trabalho ou compartilhar sua experiência? Fale diretamente com o ateliê.</p><a className="text-link" href={WHATSAPP} target="_blank" rel="noreferrer">Fale com o ateliê <ArrowRight size={17}/></a><span className="placeholder-note">DEPOIMENTOS REAIS EM ATUALIZAÇÃO</span></div></section>
+    <section id="duvidas" className="section faq-section"><div className="faq-intro"><p className="eyebrow"><span/> DÚVIDAS FREQUENTES</p><h2>Vamos esclarecer<br/><em>os detalhes.</em></h2><p>Conte o que você precisa. Estamos aqui para orientar sobre instrumentos, manutenção e personalização.</p><a className="button button-primary" href={WHATSAPP} target="_blank" rel="noreferrer">Pergunte pelo WhatsApp <ArrowRight size={18}/></a></div><div className="faq-list">{faqs.map((f,i)=><div className={faqOpen===i?"faq-item is-open":"faq-item"} key={f.q}><button aria-expanded={faqOpen===i} onClick={()=>setFaqOpen(faqOpen===i?null:i)}><span>{f.q}</span><span className="faq-toggle">{faqOpen===i?"−":"+"}</span></button>{faqOpen===i&&<p>{f.a}</p>}</div>)}</div></section>
+    <section className="final-cta"><div className="cta-pattern" aria-hidden="true"/><p className="eyebrow eyebrow-light"><span/> O PRÓXIMO PASSO COMEÇA AQUI</p><h2>Seu instrumento.<br/><em>Sua identidade.</em></h2><p>Fale com o Ateliê du Bamboo e descubra as possibilidades para sua ideia, seu instrumento ou seu próximo projeto.</p><a className="button button-light" href={WHATSAPP} target="_blank" rel="noreferrer">Quero falar com especialista <ArrowRight size={18}/></a><small>Atendimento de segunda a sábado, das 8h às 18h · São Paulo, SP</small></section>
+    <footer className="site-footer"><div className="footer-main"><a className="brand brand-footer" href="#inicio"><span className="brand-mark"><Music2 size={24}/></span><span className="brand-copy"><strong>ATELIÊ <em>DU BAMBOO</em></strong><small>INSTRUMENTOS ARTESANAIS</small></span></a><p>Instrumentos artesanais, manutenção e arte personalizada. Trabalho feito com cuidado e respeito à música.</p><a className="footer-social" href="https://www.instagram.com/tekadutamboo/" target="_blank" rel="noreferrer"><Instagram size={17}/> @tekadutamboo <ArrowUpRight size={14}/></a></div><div className="footer-contact"><h3>Vamos conversar</h3><a href={WHATSAPP} target="_blank" rel="noreferrer"><Phone size={16}/> (11) 96361-7638</a><p><Mail size={16}/> teka@dutamboo <small>(confirme o endereço de e-mail)</small></p><p><MapPin size={16}/> São Paulo, SP</p><p><Clock3 size={16}/> Seg a sáb · 8h às 18h</p></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Ateliê du Bamboo. Todos os direitos reservados.</span><a href="#inicio">Voltar ao topo ↑</a></div></footer>
+    <a className="whatsapp-float" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="Fale com o Ateliê du Bamboo pelo WhatsApp"><MessageCircle size={25}/><span>Vamos conversar</span></a>
+  </main>;
 }
