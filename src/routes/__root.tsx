@@ -15,9 +15,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({ meta: [
     { charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { title: "Ateliê du Bamboo | Instrumentos Artesanais e Personalizados" },
-    { name: "description", content: "Instrumentos de percussão artesanais, manutenção especializada e arte personalizada. Mais de 25 anos de experiência. Ateliê du Bamboo, São Paulo." },
-    { name: "theme-color", content: "#5d4524" }, { property: "og:title", content: "Ateliê du Bamboo | Instrumentos Artesanais" },
+    { title: "Ateliê Dutamboo | Instrumentos Artesanais e Personalizados" },
+    { name: "description", content: "Instrumentos de percussão artesanais, manutenção especializada e arte personalizada. Mais de 25 anos de experiência. Ateliê Dutamboo, São Paulo." },
+    { name: "theme-color", content: "#5d4524" }, { property: "og:title", content: "Ateliê Dutamboo | Instrumentos Artesanais" },
     { property: "og:description", content: "Percussão artesanal, manutenção cuidadosa e arte personalizada em São Paulo." }, { property: "og:type", content: "website" }, { property: "og:locale", content: "pt_BR" }, { name: "twitter:card", content: "summary_large_image" }
   ], links: [{ rel: "stylesheet", href: appCss }, { rel: "icon", href: "/favicon.ico", type: "image/x-icon" }] }),
   shellComponent: RootShell, component: RootComponent, notFoundComponent: NotFoundComponent, errorComponent: ErrorComponent,
